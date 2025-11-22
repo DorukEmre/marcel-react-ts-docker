@@ -1,0 +1,19 @@
+node_modules
+/node_modules
+.env
+.env.local
+.env.development.local
+.env.production.local
+
+#production
+dist
+frontend/dist
+
+# misc
+desktop.ini
+.vscode
+
+*.pem
+https_test
+log_deploy.txt
+log_stream.txt

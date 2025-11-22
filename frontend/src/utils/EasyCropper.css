@@ -1,0 +1,159 @@
+/* Cropper */
+
+.crop-modal {
+  width: 100%;
+  height: 100%;
+  max-width: 100vw;
+  max-height: 100vh;
+  background-color: var(--clr-back-300);
+}
+.crop-modal.MuiBox-root {
+  padding: 0;
+}
+.modal-container {
+  width: 100%;
+  height: 100%;
+  max-width: 450px;
+  margin: 0 auto;
+}
+
+.cropper-container {
+  width: 100%;
+  height: 90%;
+  max-height: 550px;
+  max-width: 450px;
+  margin: 1.5rem auto 0;
+}
+
+.cropper-container--cropper {
+  position: relative;
+  width: 100%;
+  height: 80%;
+  max-width: 450px;
+  max-height: 550px;
+}
+
+.cropper-container--controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 1rem;
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
+.cropper-container--controls--slider {
+  width: 350px;
+}
+.cropper-container--controls--slider p {
+  padding-bottom: 0.5rem;
+}
+
+.cropper-buttons-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 450px;
+  margin-top: 1.5rem;
+}
+.cropper-cancel-button {
+  background-color: var(--clr-neutral-600);
+  min-width: fit-content;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 100ms ease-in;
+}
+.cropper-save-button {
+  color: var(--clr-back-300);
+  background-color: var(--clr-accent-300);
+  min-width: 75px;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 100ms ease-in;
+}
+
+.cropper-cancel-button:hover,
+.cropper-cancel-button:active,
+.cropper-cancel-button:focus {
+  background-color: var(--clr-neutral-500);
+}
+.cropper-save-button:hover,
+.cropper-save-button:active,
+.cropper-save-button:focus {
+  color: var(--clr-back-300);
+  background-color: var(--clr-compl-700);
+}
+
+/********** Range Input Styles **********/
+/*Range Reset*/
+.cropper-range {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+  width: 100%;
+  background-color: var(--clr-accent-300);
+  border-radius: 4px;
+  height: 4px;
+}
+
+/* Removes default focus */
+.cropper-range:focus {
+  outline: none;
+}
+
+/* slider track */
+.cropper-range::-webkit-slider-runnable-track {
+  background-color: var(--clr-accent-300);
+  border-radius: 4px;
+  height: 4px;
+}
+.cropper-range::-moz-range-track {
+  background-color: var(--clr-accent-300);
+  border-radius: 4px;
+  height: 4px;
+}
+
+/* slider thumb */
+.cropper-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: var(--clr-neutral-300);
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  margin-top: -6px;
+}
+.cropper-range::-moz-range-thumb {
+  background-color: var(--clr-neutral-300);
+  height: 16px;
+  width: 16px;
+  border: none;
+  border-radius: 50%;
+}
+
+.cropper-range:focus::-webkit-slider-thumb {
+  outline: 2px solid var(--clr-neutral-400);
+  outline-offset: 0.125rem;
+}
+.cropper-range:focus::-moz-range-thumb {
+  outline: 2px solid var(--clr-neutral-400);
+  outline-offset: 0.125rem;
+}
+
+@media screen and (max-width: 480px) {
+  .cropper-container {
+    margin: 0 auto;
+  }
+  .cropper-container--controls {
+    padding: 1rem 2rem;
+    margin-top: 0;
+  }
+  .cropper-buttons-container {
+    padding: 0 1rem;
+  }
+}
