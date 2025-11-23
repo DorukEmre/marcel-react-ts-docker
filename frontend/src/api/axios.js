@@ -1,13 +1,6 @@
 import axios from 'axios'
 
-const domain = window.location.hostname
-let serverLoc
-if (domain === 'www.marcelthecat.com') {
-  serverLoc = 'https://www.marcelthecat.com'
-}
-
-const BASE_URL =
-  process.env.NODE_ENV === 'production' ? serverLoc : 'http://localhost:9191'
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 export default axios.create({
   baseURL: BASE_URL,
