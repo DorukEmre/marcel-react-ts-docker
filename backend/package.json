@@ -6,27 +6,26 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "server": "nodemon server.js",
-    "build": "npm install --prefix frontend && npm run build --prefix frontend"
+    "server": "nodemon server.js"
   },
   "author": "Doruk Emre",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^5.1.1",
+    "bcrypt": "^6.0.0",
     "cloudinary": "^2.8.0",
     "connect-mongo": "^5.1.0",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
-    "dotenv": "^16.6.1",
-    "express": "^4.21.2",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
     "express-session": "^1.18.2",
-    "helmet": "^7.2.0",
+    "helmet": "^8.1.0",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.21.0",
-    "mongoose": "^8.20.1",
+    "mongoose": "^9.0.0",
     "morgan": "^1.10.1",
-    "multer": "^1.4.5-lts.2",
-    "sharp": "^0.33.5",
+    "multer": "^2.0.2",
+    "sharp": "^0.34.5",
     "streamifier": "^0.1.1"
   },
   "devDependencies": {
