@@ -10,17 +10,34 @@ $(error .env file is required)
 endif
 
 
+# Clean / build frontend
+
+clean_frontend:
+	rm -rf frontend/dist
+	mkdir -p frontend/dist
+
+build_frontend_local: clean_frontend
+	cd frontend && npm ci && \
+	VITE_API_BASE_URL="$(API_SERVER_URL_LOCAL)" npm run build
+
+build_frontend_prod: clean_frontend
+	cd frontend && npm ci && \
+	VITE_API_BASE_URL="$(API_SERVER_URL_PROD)" npm run build
+
+
 # Build environments
 
 dev:
 	docker compose -f docker-compose.dev.yml up --build
 
-prod:
+prod: build_frontend_prod
 	docker compose -f docker-compose.prod.yml up --build
 
-prod_detached:
+prod_detached: build_frontend_prod
 	docker compose -f docker-compose.prod.yml up -d --build
 
+local_prod: build_frontend_local
+	docker compose -f docker-compose.prod.yml -f docker-compose.localprod.yml up --build
 
 # Maintenance tasks
 
@@ -35,8 +52,9 @@ stop_prod:
 	docker compose -f docker-compose.prod.yml stop
 
 
-.PHONY: _no_default dev prod prod_detached \
+.PHONY: _no_default dev prod prod_detached local_prod \
 	down_dev stop_dev down_prod stop_prod \
+	clean_frontend build_frontend_local build_frontend_prod 
 
 .DEFAULT_GOAL := _no_default
 
