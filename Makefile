@@ -10,6 +10,20 @@ $(error .env file is required)
 endif
 
 
+# Trigger deployment by CI/CD pipeline (github actions)
+
+update_repo:
+	git pull origin main
+
+deploy_frontend: update_repo build_frontend_prod
+	docker compose -f docker-compose.prod.yml restart marcel-caddy-prod
+
+deploy_backend: update_repo
+	docker compose -f docker-compose.prod.yml build
+	docker compose -f docker-compose.prod.yml up -d
+	docker image prune -f
+
+
 # Clean / build frontend
 
 clean_frontend:
