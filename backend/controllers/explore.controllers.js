@@ -16,8 +16,8 @@ module.exports = {
 
     // const GMKey =
     //   process.env.NODE_ENV === 'production'
-    //     ? process.env.GM_KEY_PROD
-    //     : process.env.GM_KEY_DEV
+    //     ? process.env.GOOGLE_MAPS_KEY_PROD
+    //     : process.env.GOOGLE_MAPS_KEY_DEV
     //res.status(200).json({ posts, GMKey })
 
     res.status(200).json({ posts })

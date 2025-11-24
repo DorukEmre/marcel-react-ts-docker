@@ -18,8 +18,8 @@ const Map = ({
 
   const URLKey =
     process.env.NODE_ENV === 'production'
-      ? import.meta.env.VITE_GM_KEY_PROD
-      : import.meta.env.VITE_GM_KEY_DEV
+      ? import.meta.env.VITE_GOOGLE_MAPS_KEY_PROD
+      : import.meta.env.VITE_GOOGLE_MAPS_KEY_DEV
 
   // useEffect(() => {
   //   URLKey === null
