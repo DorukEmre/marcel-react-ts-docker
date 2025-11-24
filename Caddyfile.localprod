@@ -1,0 +1,21 @@
+localhost:80 {
+	root * /usr/share/caddy/react
+	
+  try_files {path} /index.html
+
+	file_server
+
+	log {
+		output stdout
+		level WARN
+	}
+}
+
+localhost:443 {
+	reverse_proxy marcel-backend-prod:8000
+
+	log {
+		output stdout
+		level WARN
+	}
+}

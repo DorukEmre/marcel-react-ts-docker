@@ -1,0 +1,8 @@
+services:
+  marcel-caddy-prod:
+    restart: no
+    volumes:
+      - ./Caddyfile.localprod:/etc/caddy/Caddyfile:ro
+      
+  marcel-backend-prod:
+    restart: no
