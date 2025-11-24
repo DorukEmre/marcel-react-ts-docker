@@ -126,15 +126,22 @@ module.exports = {
     // console.log('req.params', req.params)
     try {
       const foundUser = await User.findOne({ email: req.user })
-      const userToDelete = await User.findOne({
-        _id: req.params.currentUserId,
-      })
+      const userToDelete = await User.findById(req.params.currentUserId)
 
-      if (foundUser.id != req.params.currentUserId) res.sendStatus(400)
+      if (!foundUser || !userToDelete)
+        return res.sendStatus(404)
 
-      await User.findOneAndDelete({ _id: foundUser.id })
-      const deletedUser = await User.findOne({ _id: foundUser.id })
-      deletedUser === null ? res.sendStatus(200) : res.sendStatus(400)
+      // check requester is the same as the target user
+      if (foundUser.id !== userToDelete.id)
+        return res.sendStatus(403)
+
+      // delete user posts
+      await Post.deleteMany({ user: userToDelete.id })
+
+      // delete user
+      const deletedUser = await User.findOneAndDelete({ _id: foundUser.id })
+      return deletedUser ? res.sendStatus(200) : res.sendStatus(400)
+
     } catch (err) {
       console.log(err)
       res.sendStatus(400)
