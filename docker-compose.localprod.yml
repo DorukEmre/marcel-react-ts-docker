@@ -1,6 +1,8 @@
 services:
   marcel-caddy-prod:
     restart: no
+    ports:
+      - "5443:5443"
     volumes:
       - ./Caddyfile.localprod:/etc/caddy/Caddyfile:ro
       

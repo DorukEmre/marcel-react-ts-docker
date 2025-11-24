@@ -1,4 +1,4 @@
-localhost:80 {
+localhost:5443 {
 	root * /usr/share/caddy/react
 	
   try_files {path} /index.html
