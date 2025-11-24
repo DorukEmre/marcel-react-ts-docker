@@ -17,11 +17,11 @@ clean_frontend:
 	mkdir -p frontend/dist
 
 build_frontend_local: clean_frontend
-	cd frontend && npm ci && \
+	cd frontend && npm ci --omit=dev && \
 	VITE_API_BASE_URL="$(API_SERVER_URL_LOCAL)" npm run build
 
 build_frontend_prod: clean_frontend
-	cd frontend && npm ci && \
+	cd frontend && npm ci --omit=dev && \
 	VITE_API_BASE_URL="$(API_SERVER_URL_PROD)" npm run build
 
 
