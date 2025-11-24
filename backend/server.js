@@ -1,9 +1,6 @@
 const express = require('express')
 const app = express()
-const session = require('express-session')
-const MongoStore = require('connect-mongo')
 const logger = require('morgan')
-const path = require('path')
 const cors = require('cors')
 const helmet = require('helmet')
 const cookieParser = require('cookie-parser')
@@ -29,36 +26,17 @@ app.use(express.urlencoded({ extended: true }))
 // Helmet middleware for setting security headers
 app.use(helmet({ contentSecurityPolicy: cspDirectives }))
 
-// Redirect HTTP to HTTPS
-// if (process.env.NODE_ENV === 'production') {
-//   app.use((req, res, next) => {
-//     if (req.headers['x-forwarded-proto'] !== 'https') {
-//       return res.redirect(301, 'https://' + req.headers.host + req.url)
-//     }
-//     next()
-//   })
-// }
-
 // Cross Origin Resource Sharing
 app.use(cors(corsOptions))
 
+// Use JSON parser for request bodies
 app.use(express.json())
 
-// Logging
+// Logs HTTP request info to stdout
 app.use(logger('dev'))
 
-// Cookies
+// Parse incoming cookies
 app.use(cookieParser())
-
-// Setup sessions - stored in MongoDB
-app.use(
-  session({
-    secret: process.env.SECRET,
-    resave: false,
-    saveUninitialized: false,
-    store: MongoStore.create({ mongoUrl: process.env.DB_STRING }),
-  }),
-)
 
 // Set up routes
 app.use('/api/', authRoutes)
@@ -90,6 +68,6 @@ connectDB().then(() => {
   const port = process.env.PORT || 8000
 
   app.listen(port, () => {
-    console.log(`Server is running on port ${port} -`)
+    console.log(`Server is running on port ${port}`)
   })
 })
