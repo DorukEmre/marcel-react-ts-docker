@@ -8,16 +8,14 @@ const verifyJWT = (req, res, next) => {
   const token = authHeader.split(' ')[1]
   // console.log('token in verifyJWT', token)
 
-  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
-    if (err) {
-      // console.log(err)
-      return res.sendStatus(403)
-    } //invalid token
-    // req.user = decoded.UserInfo.username
-    // console.log('decoded in verifyJWT', decoded)
+  try {
+    const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
     req.user = decoded.email
-    next()
-  })
+    return next()
+
+  } catch (err) {
+    return res.sendStatus(403)
+  }
 }
 
 module.exports = verifyJWT
