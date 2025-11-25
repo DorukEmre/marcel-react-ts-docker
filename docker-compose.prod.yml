@@ -1,13 +1,13 @@
 services:
 
-  marcel-caddy-prod:
+  marcel-caddy:
     restart: unless-stopped
     image: caddy:2.10.2-alpine
-    ports:
-      - "80:80"
-      - "443:443"
+    # ports:
+    #   - "80:80"
+    #   - "443:443"
     depends_on:
-      - marcel-backend-prod
+      - marcel-backend
     volumes:
       - ./Caddyfile.prod:/etc/caddy/Caddyfile:ro
       - ./frontend/dist:/usr/share/caddy/react:ro
@@ -15,13 +15,14 @@ services:
       - caddy_config:/config
     networks:
       - marcel-network
+      - proxy-network   # shared external network
       
-  marcel-backend-prod:
+  marcel-backend:
     restart: unless-stopped
     build:
       context: ./backend
       dockerfile: Dockerfile.prod
-    image: marcel-backend-prod
+    image: marcel-backend
     working_dir: /app
     expose: [8000]
     env_file:
@@ -31,10 +32,12 @@ services:
       # API_SERVER_URL: ${API_SERVER_URL_LOCAL}
     networks:
       - marcel-network
-   
+
 networks:
   marcel-network:
     driver: bridge
+  proxy-network:
+    external: true
 
 volumes:
   caddy_data:

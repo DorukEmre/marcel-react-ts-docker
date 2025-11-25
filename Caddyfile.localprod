@@ -11,8 +11,8 @@ localhost:5443 {
 	}
 }
 
-localhost:443 {
-	reverse_proxy marcel-backend-prod:8000
+localhost:8443 {
+	reverse_proxy marcel-backend:8000
 
 	log {
 		output stdout

@@ -1,10 +1,11 @@
 services:
-  marcel-caddy-prod:
+  marcel-caddy:
     restart: no
     ports:
       - "5443:5443"
+      - "8443:8443"
     volumes:
       - ./Caddyfile.localprod:/etc/caddy/Caddyfile:ro
       
-  marcel-backend-prod:
+  marcel-backend:
     restart: no
