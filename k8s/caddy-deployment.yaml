@@ -18,10 +18,19 @@ spec:
           ports:
             - containerPort: 80
           volumeMounts:
+            # Mount the Caddyfile
             - name: caddyfile
               mountPath: /etc/caddy/Caddyfile
               subPath: Caddyfile
+            # Mount the frontend React files
+            - name: frontend
+              mountPath: /usr/share/caddy/react
       volumes:
+        # ConfigMap for the Caddyfile
         - name: caddyfile
           configMap:
             name: marcel-caddyfile
+        # ConfigMap for the frontend
+        - name: frontend
+          configMap:
+            name: marcel-frontend

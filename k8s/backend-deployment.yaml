@@ -18,6 +18,9 @@ spec:
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8000
+          env:
+            - name: HOST
+              value: "0.0.0.0"
           envFrom:
             - secretRef:
                 name: marcel-env

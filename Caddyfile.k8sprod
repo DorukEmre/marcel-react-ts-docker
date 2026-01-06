@@ -1,0 +1,60 @@
+:80 {
+
+    @frontend host marcel.dorukemre.dev www.marcelthecat.com
+    handle @frontend {
+        encode gzip zstd
+        root * /usr/share/caddy/react
+        
+        try_files {path} /index.html
+        file_server
+
+        header {
+            Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+            X-Content-Type-Options "nosniff"
+            X-Frame-Options "DENY"
+        }
+    }
+
+    # frontend access log
+    log @frontend {
+        output file /data/caddy/frontend_access.log
+        format json
+    }
+
+
+    @api host api.marcel.dorukemre.dev api.marcelthecat.com
+    handle @api {
+        encode gzip zstd
+
+        header {
+            Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+            X-Content-Type-Options "nosniff"
+            X-Frame-Options "DENY"
+            Referrer-Policy "strict-origin-when-cross-origin"
+            Permissions-Policy "geolocation=(), microphone=(), camera=()"
+            Cache-Control "no-store"
+        }
+
+        reverse_proxy http://marcel-backend:8000 {
+            transport http {
+                read_timeout 30s
+                write_timeout 30s
+            }
+            
+            health_uri /
+            health_interval 10s
+            health_timeout 3s
+        }
+    }
+
+    # api access log
+    log @api {
+        output file /data/caddy/access.log {
+            roll_size 5mb
+            roll_keep 5
+            roll_keep_for 720h
+        }
+        format json
+    }
+
+}
