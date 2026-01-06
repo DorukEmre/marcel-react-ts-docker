@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: marcel-backend
+spec:
+  selector:
+    app: marcel-backend
+  ports:
+    - port: 8000
+      targetPort: 8000

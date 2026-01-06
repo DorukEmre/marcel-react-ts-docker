@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: marcel-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: marcel-backend
+  template:
+    metadata:
+      labels:
+        app: marcel-backend
+    spec:
+      containers:
+        - name: backend
+          image: marcel-backend:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8000
+          envFrom:
+            - secretRef:
+                name: marcel-env
