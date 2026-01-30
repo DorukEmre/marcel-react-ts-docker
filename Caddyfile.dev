@@ -1,4 +1,5 @@
 localhost {
+  tls internal
   reverse_proxy marcel-backend-dev:8000
 	log {
 		output stdout
