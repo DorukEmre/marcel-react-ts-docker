@@ -20,11 +20,12 @@ services:
       dockerfile: Dockerfile.dev
     image: marcel-frontend-dev
     ports: [5173:5173]
-    env_file:
-      - .env
-      - ./frontend/.env
+    # env_file:
+    #   - .env
+    #   - ./frontend/.env
     environment:
-      - VITE_API_BASE_URL=${API_SERVER_URL_LOCAL}
+      VITE_API_BASE_URL: ${API_SERVER_URL_LOCAL}
+      VITE_GOOGLE_MAPS_KEY: ${GOOGLE_MAPS_KEY_DEV}
     networks:
       - marcel-network
     volumes:

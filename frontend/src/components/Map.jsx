@@ -16,10 +16,7 @@ const Map = ({
 }) => {
   const [catInfo, setCatInfo] = useState(null)
 
-  const URLKey =
-    process.env.NODE_ENV === 'production'
-      ? import.meta.env.VITE_GOOGLE_MAPS_KEY_PROD
-      : import.meta.env.VITE_GOOGLE_MAPS_KEY_DEV
+  const URLKey = import.meta.env.VITE_GOOGLE_MAPS_KEY
 
   // useEffect(() => {
   //   URLKey === null

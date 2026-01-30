@@ -30,14 +30,17 @@ clean_frontend:
 	rm -rf frontend/dist
 	mkdir -p frontend/dist
 
-build_frontend_local: clean_frontend
+build_frontend_localprod: clean_frontend
 	cd frontend && npm ci && \
-	VITE_API_BASE_URL="$(API_SERVER_URL_LOCAL)" npm run build
+	VITE_API_BASE_URL="$(API_SERVER_URL_LOCAL)" \
+	VITE_GOOGLE_MAPS_KEY="$(GOOGLE_MAPS_KEY_DEV)" \
+	npm run build
 
 build_frontend_prod: clean_frontend
 	cd frontend && npm ci && \
-	VITE_API_BASE_URL="$(API_SERVER_URL_PROD)" npm run build
-
+	VITE_API_BASE_URL="$(API_SERVER_URL_PROD)" \
+	VITE_GOOGLE_MAPS_KEY="$(GOOGLE_MAPS_KEY_PROD)" \
+	npm run build
 
 # Build environments
 
@@ -50,7 +53,7 @@ prod: build_frontend_prod
 prod_detached: build_frontend_prod
 	docker compose -f docker-compose.prod.yml up -d --build
 
-local_prod: build_frontend_local
+local_prod: build_frontend_localprod
 	docker compose -f docker-compose.prod.yml -f docker-compose.localprod.yml up --build
 
 # Maintenance tasks
@@ -68,7 +71,7 @@ stop_prod:
 
 .PHONY: _no_default dev prod prod_detached local_prod \
 	down_dev stop_dev down_prod stop_prod \
-	clean_frontend build_frontend_local build_frontend_prod 
+	clean_frontend build_frontend_localprod build_frontend_prod 
 
 .DEFAULT_GOAL := _no_default
 
